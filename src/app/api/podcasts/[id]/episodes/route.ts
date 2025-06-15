@@ -1,16 +1,15 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
-): Promise<NextResponse> {
+) {
   const id = params.id;
 
   if (!id) {
-    return NextResponse.json(
-      { error: "Podcast ID is required" },
-      { status: 400 }
-    );
+    return new Response(JSON.stringify({ error: "Podcast ID is required" }), {
+      status: 400,
+    });
   }
 
   try {
@@ -23,11 +22,11 @@ export async function GET(
     }
 
     const data = await response.json();
-    return NextResponse.json(data);
+    return new Response(JSON.stringify(data));
   } catch (error) {
     console.error("Error fetching podcast episodes:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch podcast episodes" },
+    return new Response(
+      JSON.stringify({ error: "Failed to fetch podcast episodes" }),
       { status: 500 }
     );
   }
