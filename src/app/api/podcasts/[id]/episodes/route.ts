@@ -2,9 +2,10 @@ import { type NextRequest } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const id = params.id;
+  // Await the params since it's a Promise in Next.js 15+
+  const { id } = await params;
 
   if (!id) {
     return new Response(JSON.stringify({ error: "Podcast ID is required" }), {
