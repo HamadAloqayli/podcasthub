@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
-type RouteContext = {
-  params: {
-    id: string;
-  };
-};
-
-export async function GET(request: NextRequest, { params }: RouteContext) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+): Promise<NextResponse> {
   const id = params.id;
 
   if (!id) {
