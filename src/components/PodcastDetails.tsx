@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { X, ExternalLink, Star, Users, Calendar } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import EpisodeList from './EpisodeList';
-import AudioPlayer from './AudioPlayer';
+import { useState } from "react";
+import { X, ExternalLink, Star, Copy, Tv } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import EpisodeList from "./EpisodeList";
+import AudioPlayer from "./AudioPlayer";
 
 interface Podcast {
   collectionId: number;
@@ -37,7 +37,7 @@ const PodcastDetails = ({ podcast, onClose }: PodcastDetailsProps) => {
   const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
 
   const handleExternalClick = () => {
-    window.open(podcast.collectionViewUrl, '_blank');
+    window.open(podcast.collectionViewUrl, "_blank");
   };
 
   const handlePlayEpisode = (episode: Episode) => {
@@ -78,7 +78,7 @@ const PodcastDetails = ({ podcast, onClose }: PodcastDetailsProps) => {
                   className="w-48 h-48 object-cover rounded-2xl shadow-lg mx-auto md:mx-0"
                 />
               </div>
-              
+
               <div className="flex-1 space-y-4">
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -92,12 +92,12 @@ const PodcastDetails = ({ podcast, onClose }: PodcastDetailsProps) => {
                 {/* Stats */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                    <Users className="h-4 w-4" />
+                    <Copy className="h-4 w-4" />
                     <span>{podcast.trackCount} episodes</span>
                   </div>
-                  
+
                   <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                    <Calendar className="h-4 w-4" />
+                    <Tv className="h-4 w-4" />
                     <span>{podcast.primaryGenreName}</span>
                   </div>
 
@@ -110,7 +110,7 @@ const PodcastDetails = ({ podcast, onClose }: PodcastDetailsProps) => {
 
                   {podcast.userRatingCount && (
                     <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                      <Users className="h-4 w-4" />
+                      <Copy className="h-4 w-4" />
                       <span>{podcast.userRatingCount} reviews</span>
                     </div>
                   )}
@@ -152,10 +152,7 @@ const PodcastDetails = ({ podcast, onClose }: PodcastDetailsProps) => {
 
       {/* Audio Player */}
       {currentEpisode && (
-        <AudioPlayer
-          episode={currentEpisode}
-          onClose={handleClosePlayer}
-        />
+        <AudioPlayer episode={currentEpisode} onClose={handleClosePlayer} />
       )}
     </>
   );

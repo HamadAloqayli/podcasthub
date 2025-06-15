@@ -25,6 +25,20 @@ const geistMono = Geist_Mono({
 // Create a client
 const queryClient = new QueryClient();
 
+// Client component wrapper
+const ClientProviders = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        {children}
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
+
+// Server component
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,13 +49,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            {children}
-          </TooltipProvider>
-        </QueryClientProvider>
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

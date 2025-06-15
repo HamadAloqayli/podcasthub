@@ -1,9 +1,8 @@
-
-import { useState, useEffect } from 'react';
-import { Play, Calendar, Clock, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { getPodcastEpisodes } from '@/utils/podcastEpisodesApi';
+import { useState, useEffect } from "react";
+import { Play, Tv, Clock, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { getPodcastEpisodes } from "@/utils/podcastEpisodesApi";
 
 interface Episode {
   trackId: number;
@@ -32,8 +31,8 @@ const EpisodeList = ({ podcastId, onPlayEpisode }: EpisodeListProps) => {
         const episodeData = await getPodcastEpisodes(podcastId);
         setEpisodes(episodeData);
       } catch (err) {
-        setError('Failed to load episodes');
-        console.error('Error fetching episodes:', err);
+        setError("Failed to load episodes");
+        console.error("Error fetching episodes:", err);
       } finally {
         setLoading(false);
       }
@@ -43,16 +42,16 @@ const EpisodeList = ({ podcastId, onPlayEpisode }: EpisodeListProps) => {
   }, [podcastId]);
 
   const formatDuration = (milliseconds?: number) => {
-    if (!milliseconds) return '';
+    if (!milliseconds) return "";
     const minutes = Math.floor(milliseconds / 60000);
     return `${minutes} min`;
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   };
 
@@ -60,7 +59,9 @@ const EpisodeList = ({ podcastId, onPlayEpisode }: EpisodeListProps) => {
     return (
       <div className="flex items-center justify-center py-8">
         <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
-        <span className="ml-2 text-gray-600 dark:text-gray-400">Loading episodes...</span>
+        <span className="ml-2 text-gray-600 dark:text-gray-400">
+          Loading episodes...
+        </span>
       </div>
     );
   }
@@ -76,7 +77,9 @@ const EpisodeList = ({ podcastId, onPlayEpisode }: EpisodeListProps) => {
   if (episodes.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-gray-600 dark:text-gray-400">No episodes available</p>
+        <p className="text-gray-600 dark:text-gray-400">
+          No episodes available
+        </p>
       </div>
     );
   }
@@ -86,21 +89,24 @@ const EpisodeList = ({ podcastId, onPlayEpisode }: EpisodeListProps) => {
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
         Recent Episodes ({episodes.length})
       </h3>
-      
+
       {episodes.map((episode) => (
-        <Card key={episode.trackId} className="p-4 bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <Card
+          key={episode.trackId}
+          className="p-4 bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
               <h4 className="font-medium text-gray-900 dark:text-white line-clamp-2 mb-2">
                 {episode.trackName}
               </h4>
-              
+
               <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400 mb-2">
                 <div className="flex items-center space-x-1">
-                  <Calendar className="h-3 w-3" />
+                  <Tv className="h-3 w-3" />
                   <span>{formatDate(episode.releaseDate)}</span>
                 </div>
-                
+
                 {episode.trackTimeMillis && (
                   <div className="flex items-center space-x-1">
                     <Clock className="h-3 w-3" />
@@ -108,14 +114,14 @@ const EpisodeList = ({ podcastId, onPlayEpisode }: EpisodeListProps) => {
                   </div>
                 )}
               </div>
-              
+
               {episode.description && (
                 <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-                  {episode.description.replace(/<[^>]*>/g, '')}
+                  {episode.description.replace(/<[^>]*>/g, "")}
                 </p>
               )}
             </div>
-            
+
             <Button
               onClick={() => onPlayEpisode(episode)}
               size="sm"

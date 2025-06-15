@@ -1,6 +1,5 @@
-
-import { ExternalLink, Star, Users } from 'lucide-react';
-import { Card } from '@/components/ui/card';
+import { ExternalLink, Star, Copy } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 interface Podcast {
   collectionId: number;
@@ -24,7 +23,7 @@ interface PodcastCardProps {
 const PodcastCard = ({ podcast, onClick }: PodcastCardProps) => {
   const handleExternalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    window.open(podcast.collectionViewUrl, '_blank');
+    window.open(podcast.collectionViewUrl, "_blank");
   };
 
   return (
@@ -46,17 +45,17 @@ const PodcastCard = ({ podcast, onClick }: PodcastCardProps) => {
           <h3 className="font-bold text-lg leading-tight line-clamp-2 text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
             {podcast.collectionName}
           </h3>
-          
+
           <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-1">
             by {podcast.artistName}
           </p>
-          
+
           <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
             <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full">
               {podcast.primaryGenreName}
             </span>
             <span className="flex items-center space-x-1">
-              <Users className="h-3 w-3" />
+              <Copy className="h-3 w-3" />
               <span>{podcast.trackCount} episodes</span>
             </span>
           </div>
@@ -66,7 +65,9 @@ const PodcastCard = ({ podcast, onClick }: PodcastCardProps) => {
               <Star className="h-3 w-3 fill-current" />
               <span>{podcast.averageUserRating.toFixed(1)}</span>
               {podcast.userRatingCount && (
-                <span className="text-gray-500">({podcast.userRatingCount})</span>
+                <span className="text-gray-500">
+                  ({podcast.userRatingCount})
+                </span>
               )}
             </div>
           )}
