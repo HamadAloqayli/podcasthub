@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  context: { params: { id: string } }
-) {
-  const id = context.params.id;
+type RouteContext = {
+  params: {
+    id: string;
+  };
+};
+
+export async function GET(request: NextRequest, { params }: RouteContext) {
+  const id = params.id;
 
   if (!id) {
     return NextResponse.json(
